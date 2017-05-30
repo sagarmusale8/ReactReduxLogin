@@ -17,10 +17,14 @@ class AppContainer extends Component{
 
     constructor(props){
         super(props)
+        this.state = {
+            username: '',
+            password: ''
+        }
     }
 
     performLogin() {
-        this.props.logIn();
+        this.props.logIn(this.state.username, this.state.password);
     }
     
     render() {
@@ -43,6 +47,8 @@ class AppContainer extends Component{
                           <TextInput placeholder="Username" keyboardType='email-address' 
                             placeholderTextColor='#888' 
                             style={styles.textInput}
+                            onChangeText={(username)=> this.setState({username})}
+                            value={this.state.username}
                             />
                         </View>
                         <View style={styles.textInputView}>
@@ -50,11 +56,13 @@ class AppContainer extends Component{
                             placeholderTextColor='#888' 
                             style={styles.textInput}
                             ref="password"
-                            secureTextEntry={true} 
+                            secureTextEntry={true}
+                            onChangeText={(password)=> this.setState({password})}
+                            value={this.state.password}
                             />
                         </View>
                       </View>
-                      <TouchableHighlight style={styles.buttonContainer}>
+                      <TouchableHighlight style={styles.buttonContainer} onPress={()=>{this.performLogin()}}>
                         <Text style = {styles.loginButton}>
                           Login
                         </Text>
